@@ -12,7 +12,7 @@ class JWGLWeb:
     def __init__(self, username, password):
         self.username = username
         self.password = password
-        self.page =  ChromiumPage()
+        self.page = ChromiumPage()
         self.headers = {
             'Accept': 'application/json, text/javascript, */*; q=0.01',
             'Accept-Language': 'zh-CN,zh;q=0.9',
@@ -45,6 +45,7 @@ class JWGLWeb:
         time.sleep(10)
         with open("cookie.json", "w", encoding="UTF-8") as f:
             json.dump(page.cookies(all_info=False, as_dict=True), f)
+
     def getjson(self):
         self.page.close()
         with open("cookie.json", "r", encoding="UTF-8") as f:
@@ -60,15 +61,17 @@ class JWGLWeb:
             '%22%3A%22cbl_m_List%22%2C%22builder%22%3A%22m_value_equal%22%2C%22value%22%3A%220%22%2C%22value_display%22%3A%22'
             '%E5%90%A6%22%7D%5D&*order=-XNXQDM%2C-KCH%2C-KXH'
             '&pageSize=100&pageNumber=1')
-        result = requests.post(url="https://jwgl.hrbeu.edu.cn/jwapp/sys/cjcx/modules/cjcx/xscjcx.do", headers=self.headers, data=payload, verify=False)
+        result = requests.post(url="https://jwgl.hrbeu.edu.cn/jwapp/sys/cjcx/modules/cjcx/xscjcx.do",
+                               headers=self.headers, data=payload, verify=False)
         with open("result.json", "w", encoding="UTF-8") as f:
             json.dump(result.json(), f, ensure_ascii=False, indent=4)
-    
+
     def getexcel(self):
         page = self.page
         excel_btn = page.ele("#dqxq-report")
         excel_btn.click()
         page.close()
+
 
 if __name__ == '__main__':
     jwgl = JWGLWeb("", "")

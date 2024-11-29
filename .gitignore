@@ -2,3 +2,6 @@
 /.vscode
 /.idea
 /__pycache__
+/cookie.json
+/result.json
+/result.txt
